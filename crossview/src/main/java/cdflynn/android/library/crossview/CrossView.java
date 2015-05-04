@@ -61,6 +61,9 @@ public class CrossView extends View {
     private RectF mRect;
     private PathMeasure mPathMeasure;
 
+    private float[] mFromXY;
+    private float[] mToXY;
+
     /**
      * Internal state flag for the drawn appearance, plus or cross.
      * The default starting position is "plus". This represents the real configuration, whereas
@@ -104,15 +107,15 @@ public class CrossView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float[] from = getPointFromPercent(mArcTop, mArcLengthTop, mPercent);
-        float[] to = getPointFromPercent(mArcBottom, mArcLengthBottom, mPercent);
+        setPointFromPercent(mArcTop, mArcLengthTop, mPercent, mFromXY);
+        setPointFromPercent(mArcBottom, mArcLengthBottom, mPercent, mToXY);
 
-        canvas.drawLine(from[0], from[1], to[0], to[1], mPaint);
+        canvas.drawLine(mFromXY[0], mFromXY[1], mToXY[0], mToXY[1], mPaint);
 
-        from = getPointFromPercent(mArcLeft, mArcLengthLeft, mPercent);
-        to = getPointFromPercent(mArcRight, mArcLengthRight, mPercent);
+        setPointFromPercent(mArcLeft, mArcLengthLeft, mPercent, mFromXY);
+        setPointFromPercent(mArcRight, mArcLengthRight, mPercent, mToXY);
 
-        canvas.drawLine(from[0], from[1], to[0], to[1], mPaint);
+        canvas.drawLine(mFromXY[0], mFromXY[1], mToXY[0], mToXY[1], mPaint);
     }
 
     @Override
@@ -283,6 +286,9 @@ public class CrossView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeCap(Paint.Cap.SQUARE);
         mPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
+
+        mFromXY = new float[]{0f, 0f};
+        mToXY = new float[]{0f, 0f};
     }
 
     /**
@@ -293,12 +299,11 @@ public class CrossView extends View {
      * @param percent the percentage along the path's length to find a point
      * @return the point along {@code path} at {@code percent} of its length
      */
-    private float[] getPointFromPercent(Path path, float length, float percent) {
+    private void setPointFromPercent(Path path, float length, float percent, float[] points) {
         float percentFromState = mState == FLAG_STATE_PLUS ? percent : 1 - percent;
-        float[] xy = new float[]{0f, 0f};
         mPathMeasure.setPath(path, false);
-        mPathMeasure.getPosTan(length * percentFromState, xy, null);
-        return xy;
+        mPathMeasure.getPosTan(length * percentFromState, points, null);
+
     }
 
     /**
