@@ -133,19 +133,19 @@ public class CrossView extends View {
             parcelable = new Bundle();
         }
 
-        AddRemoveSavedState savedState = new AddRemoveSavedState(parcelable);
+        CrossViewState savedState = new CrossViewState(parcelable);
         savedState.flagState = mState;
         return savedState;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        if(!(state instanceof AddRemoveSavedState)) {
+        if(!(state instanceof CrossViewState)) {
             super.onRestoreInstanceState(state);
             return;
         }
 
-        AddRemoveSavedState ss = (AddRemoveSavedState)state;
+        CrossViewState ss = (CrossViewState)state;
         mState = ss.flagState;
         if (mState != FLAG_STATE_PLUS && mState != FLAG_STATE_CROSS) {
             mState = FLAG_STATE_PLUS;
@@ -293,11 +293,11 @@ public class CrossView extends View {
 
     /**
      * Given some path and its length, find the point ([x,y]) on that path at
-     * the given percentage of length.
+     * the given percentage of length.  Store the result in {@code points}.
      * @param path any path
      * @param length the length of {@code path}
      * @param percent the percentage along the path's length to find a point
-     * @return the point along {@code path} at {@code percent} of its length
+     * @param points a float array of length 2, where the coordinates will be stored
      */
     private void setPointFromPercent(Path path, float length, float percent, float[] points) {
         float percentFromState = mState == FLAG_STATE_PLUS ? percent : 1 - percent;
@@ -309,14 +309,14 @@ public class CrossView extends View {
     /**
      * Internal saved state
      */
-    static class AddRemoveSavedState extends BaseSavedState {
+    static class CrossViewState extends BaseSavedState {
         private int flagState;
 
-        AddRemoveSavedState(Parcelable superState) {
+        CrossViewState(Parcelable superState) {
             super(superState);
         }
 
-        private AddRemoveSavedState(Parcel in) {
+        private CrossViewState(Parcel in) {
             super(in);
             this.flagState = in.readInt();
         }
@@ -327,13 +327,13 @@ public class CrossView extends View {
             out.writeInt(this.flagState);
         }
 
-        public static final Parcelable.Creator<AddRemoveSavedState> CREATOR =
-                new Parcelable.Creator<AddRemoveSavedState>() {
-                    public AddRemoveSavedState createFromParcel(Parcel in) {
-                        return new AddRemoveSavedState(in);
+        public static final Parcelable.Creator<CrossViewState> CREATOR =
+                new Parcelable.Creator<CrossViewState>() {
+                    public CrossViewState createFromParcel(Parcel in) {
+                        return new CrossViewState(in);
                     }
-                    public AddRemoveSavedState[] newArray(int size) {
-                        return new AddRemoveSavedState[size];
+                    public CrossViewState[] newArray(int size) {
+                        return new CrossViewState[size];
                     }
                 };
     }
