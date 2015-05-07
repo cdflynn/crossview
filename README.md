@@ -1,5 +1,8 @@
 # Cross View
 
+[![Release](https://img.shields.io/github/release/cdflynn/crossview.svg?label=JitPack)](https://jitpack.io/#cdflynn/crossview)
+
+
 ![Sample App](https://github.com/cdflynn/crossview/blob/master/sample/images/cross_btn_2.gif?raw=true)
 
 ![Action Bar](https://github.com/cdflynn/crossview/blob/master/sample/images/cross_btn.gif?raw=true)
@@ -47,4 +50,18 @@ mCrossView.toggle(150l);
 
 ```
 mCrossView.plus(200l);
+```
+
+## Install
+
+You can install using gradle:
+
+```gradle
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile 'com.github.cdflynn:crossview:v1.0'
+}
 ```
