@@ -62,6 +62,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.cdflynn:crossview:v1.0'
+    compile 'com.github.cdflynn:crossview:v1.0.1'
 }
 ```
