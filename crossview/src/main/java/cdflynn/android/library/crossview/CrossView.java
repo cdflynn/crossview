@@ -56,7 +56,7 @@ public class CrossView extends View {
     private float mArcLengthLeft;
     private float mArcLengthRight;
 
-    private Paint mPaint = new Paint();
+    private Paint mPaint;
     private int mColor = DEFAULT_COLOR;
     private RectF mRect;
     private PathMeasure mPathMeasure;
@@ -169,10 +169,12 @@ public class CrossView extends View {
 
     public void setColor(int argb) {
         mColor = argb;
+        if (mPaint == null) {
+            mPaint = new Paint();
+        }
         mPaint.setColor(argb);
         invalidate();
     }
-
 
     /**
      * Tell this view to switch states from cross to plus, or back, using the default animation duration.
@@ -253,6 +255,7 @@ public class CrossView extends View {
      * or an operating system callback like {@link #onLayout(boolean, int, int, int, int)}.
      */
     private void init() {
+        mPaint = new Paint();
         mRect = new RectF();
         mRect.left = getPaddingLeft();
         mRect.right = getWidth() - getPaddingRight();
