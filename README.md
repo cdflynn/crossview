@@ -8,7 +8,7 @@
 ![Action Bar](https://github.com/cdflynn/crossview/blob/master/sample/images/cross_btn.gif?raw=true)
 
 Add a CrossView to your layout
-```
+```xml
     <cdflynn.android.library.crossview.CrossView
         android:id="@+id/sample_cross_view"
         android:layout_width="50dp"
@@ -21,7 +21,7 @@ Add a CrossView to your layout
 Note that you can define the color with `lineColor`
 
 toggle in code:
-```
+```java
     private final View.OnClickListener mCrossViewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -31,24 +31,24 @@ toggle in code:
 ```
 
 You can also set a state directly:
-```
+```java
 mCrossView.plus();
 ```
-```
+```java
 mCrossView.cross();
 ```
 
 Optionally supply an animation duration in milliseconds
 
-```
+```java
 mCrossView.cross(0l);
 ```
 
-```
+```java
 mCrossView.toggle(150l);
 ```
 
-```
+```java
 mCrossView.plus(200l);
 ```
 
